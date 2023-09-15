@@ -10,9 +10,11 @@ export const Searchbar = ({ search }) => {
          <input
             className={css.SearchFormInput}
             type="text"
+            name="search"
             autoComplete="off"
             autoFocus
             placeholder="Search images and photos"
+            required
          />
       </form>
       </header>
