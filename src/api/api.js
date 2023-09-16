@@ -15,7 +15,5 @@ export const fetcImages = async (page, searchQuery) => {
       page: page,
     },
   });
-  //   console.log(response.data.totalHits);
-  //   console.log(response.data.hits);
   return response.data;
 };

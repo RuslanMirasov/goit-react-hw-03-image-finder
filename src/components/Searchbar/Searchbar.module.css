@@ -1,55 +1,62 @@
-/*
- * Стили компонента Searchbar
- */
 .Searchbar {
   top: 0;
   left: 0;
   position: sticky;
   z-index: 1100;
   display: flex;
+  width: 100%;
   justify-content: center;
   align-items: center;
-  min-height: 64px;
-  padding-right: 24px;
-  padding-left: 24px;
-  padding-top: 12px;
-  padding-bottom: 12px;
-  color: #fff;
-  background-color: #3f51b5;
+  min-height: 80px;
+  padding-right: 20px;
+  padding-left: 20px;
+  background-color: #e7ecf2;
   box-shadow: 0px 2px 4px -1px rgba(0, 0, 0, 0.2),
     0px 4px 5px 0px rgba(0, 0, 0, 0.14), 0px 1px 10px 0px rgba(0, 0, 0, 0.12);
 }
 
-/*
- * Стили компонента SearchForm
- */
 .SearchForm {
   display: flex;
   align-items: center;
   width: 100%;
   max-width: 600px;
-  background-color: #fff;
-  border-radius: 3px;
-  overflow: hidden;
+  position: relative;
 }
 
 .SearchFormButton {
-  display: inline-block;
-  width: 48px;
-  height: 48px;
-  border: 0;
-  background-image: url(../../icons/search.svg);
-  background-size: 50%;
-  background-repeat: no-repeat;
-  background-position: center;
-  opacity: 0.6;
-  transition: opacity 250ms cubic-bezier(0.4, 0, 0.2, 1);
+  display: flex;
+  width: 40px;
+  height: 40px;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-content: center;
+  align-items: center;
+  background-color: #5c91b1;
+  border: none;
+  border-radius: 10px;
   cursor: pointer;
   outline: none;
+  position: absolute;
+  right: 5px;
+  transform: translate(0);
+  transition: background-color 0.25s ease-out;
+  color: #fff;
+}
+
+.SearchFormButton:before {
+  background: #fff;
+  content: '';
+  display: block;
+  height: 50%;
+  left: 0;
+  opacity: 0.2;
+  position: absolute;
+  top: 0;
+  width: 100%;
 }
 
 .SearchFormButton:hover {
-  opacity: 1;
+  background-color: #155889;
 }
 
 .SearchFormButtonLabel {
@@ -65,14 +72,18 @@
 }
 
 .SearchFormInput {
-  display: inline-block;
-  width: 100%;
-  font: inherit;
-  font-size: 20px;
-  border: none;
+  background: #fff;
+  border: 1px solid #e7ecf2;
+  border-radius: 10px;
+  box-shadow: inset 1px 1px 2px rgba(0, 0, 0, 0.5);
+  color: #495d75;
+  font-size: 16px;
+  font-weight: 600;
+  height: 50px;
   outline: none;
-  padding-left: 14px;
-  padding-right: 4px;
+  padding: 0 20px;
+  padding-right: 50px;
+  width: 100%;
 }
 
 .SearchFormInput::placeholder {

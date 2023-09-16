@@ -1,5 +1,5 @@
 import { Component } from 'react';
-import { Searchbar } from 'components/Searchbar/Searchbar';
+import Searchbar from 'components/Searchbar/Searchbar';
 import { ImageGallery } from 'components/ImageGallery/ImageGallery';
 import { ImageGalleryItem } from 'components/ImageGalleryItem/ImageGalleryItem';
 import { Button } from 'components/Button/Button';
@@ -7,6 +7,7 @@ import { Error } from 'components/Error/Error';
 import { Oval } from 'react-loader-spinner';
 import {fetcImages} from "../../api/api";
 import css from './App.module.css';
+import Popup from 'components/Popup/Popup';
 
 export class App extends Component{
 
@@ -15,13 +16,20 @@ export class App extends Component{
     images: [],
     imagesTotal: 0,
     page: 1,
+    modalImage: '',
     request: '',
     isLoading: false,
-    isPopup: false,
+    showModal: false,
   };
 
   async componentDidUpdate(_, prevState) {
     const { page, request } = this.state;
+
+    // if (prevState.images.la !== request && page === 1) {
+    //   this.setState({
+    //     images:[],
+    //   });
+    // }
 
     if (prevState.request !== request || prevState.page !== page) {
       this.setState({
@@ -44,18 +52,24 @@ export class App extends Component{
     }
   };
 
+  closeModal = () => {
+    this.setState({showModal: false});
+  };
 
-  onSubmit = event => {
-    event.preventDefault();
-    this.setState({
-      page: 1,
-      request: event.target.search.value,
-    });
-    event.target.reset();
+  getFormRequest = newRequest => {
+    this.setState({request: newRequest, page: 1});
+    this.state.request !== newRequest && this.setState({images:[]});
+  };
+
+  getFormError = formError => {
+    this.setState({error: formError});
   };
 
   onImageClick = (url) => {
-    return url;
+    this.setState({
+      modalImage: url,
+      showModal: true,
+    });
   }
 
   onLoadMore = () => {
@@ -64,37 +78,33 @@ export class App extends Component{
     }));
   };
 
+
+
   render() {
-    const { error, images, isLoading, imagesTotal} = this.state;
+    const { error, images, isLoading, showModal, imagesTotal, modalImage } = this.state;
 
     return (
       <main className={css.App}>
-        <Searchbar search={this.onSubmit} />
-        {
-          error.length > 0 && <Error errorText={error} />
-        }
-        {
-          (images.length > 0 && error.length <= 0) && 
+        <Searchbar onSubmit={this.getFormRequest} onError={this.getFormError} />
+        {error.length > 0 && <Error errorText={error} />}
+        {(images.length > 0 && error.length <= 0) && 
           <ImageGallery>
             <ImageGalleryItem images={images} shouPopup={this.onImageClick} />
           </ImageGallery>
         }
-        {
-          (!isLoading && error.length <= 0 && images.length < imagesTotal) &&
-          <Button loadMore={this.onLoadMore} />
-        }
+        {(!isLoading && error.length <= 0 && images.length < imagesTotal) && <Button loadMore={this.onLoadMore} />}
         <Oval
           height={60}
           width={60}
-          color="#3f51b5"
-          wrapperStyle={{ margin: '0 auto', }}
-          wrapperClass=""
+          color="#5c91b1"
+          wrapperStyle={{ marginTop: '20px', }}
           visible={isLoading}
           ariaLabel='oval-loading'
-          secondaryColor="#3f51b55c"
-          strokeWidth={10}
-          strokeWidthSecondary={10}
+          secondaryColor="#d0d7dd"
+          strokeWidth={8}
+          strokeWidthSecondary={8}
         />
+        {showModal && <Popup url={modalImage} onClose={this.closeModal} />}
       </main>
     );
   };

@@ -1,6 +1,12 @@
 .App {
-  display: grid;
-  grid-template-columns: 1fr;
-  grid-gap: 16px;
-  padding-bottom: 50px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: flex-start;
+  align-content: flex-start;
+  width: 100%;
+  height: auto;
+  min-height: 100vh;
+  background: #f1f4f7;
+  padding-bottom: 80px;
 }
