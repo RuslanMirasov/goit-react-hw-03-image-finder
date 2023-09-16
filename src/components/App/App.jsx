@@ -25,12 +25,6 @@ export class App extends Component{
   async componentDidUpdate(_, prevState) {
     const { page, request } = this.state;
 
-    // if (prevState.images.la !== request && page === 1) {
-    //   this.setState({
-    //     images:[],
-    //   });
-    // }
-
     if (prevState.request !== request || prevState.page !== page) {
       this.setState({
         isLoading: true,
@@ -66,19 +60,12 @@ export class App extends Component{
   };
 
   onImageClick = (url) => {
-    this.setState({
-      modalImage: url,
-      showModal: true,
-    });
+    this.setState({modalImage: url, showModal: true});
   }
 
   onLoadMore = () => {
-    this.setState(prevState => ({
-      page: prevState.page + 1,
-    }));
+    this.setState(prevState => ({page: prevState.page + 1}));
   };
-
-
 
   render() {
     const { error, images, isLoading, showModal, imagesTotal, modalImage } = this.state;
